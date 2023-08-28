@@ -1,6 +1,6 @@
 -- Create tables for each of the six csv files
 
--- Dropping tables if they exist already (No tables currently being use with these names)
+-- Dropping tables if they exist already (No tables currently being used with these names)
 DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS titles;
 DROP TABLE IF EXISTS employees;
@@ -83,6 +83,7 @@ from employees e
 where hire_date >= '1986-01-01'
 and hire_date <= '1986-12-31';
 
+
 -- List the manager of each department along with their department number, department name, employee number, last name, and first name
 select * from employees e;
 select * from departments d;
@@ -94,6 +95,7 @@ join dept_manager dm
 on e.emp_no = dm.emp_no 
 join departments d 
 on d.dept_no = dm.dept_no;
+
 
 -- List the department number for each employee along with that employee’s employee number, last name, first name, and department name.
 select * from employees e;
@@ -116,6 +118,7 @@ from employees e
 where first_name = 'Hercules'
 and last_name like 'B%';
 
+
 -- List each employee in the Sales department, including their employee number, last name, and first name.
 select * from employees e;
 select * from dept_emp de;
@@ -129,6 +132,7 @@ join departments d
 on d.dept_no = de.dept_no 
 where de.dept_no = 'd007';
 
+
 -- List each employee in the Sales and Development departments, including their employee number, last name, first name, and department name.
 select e.first_name, e.last_name, e.emp_no, d.dept_name 
 from employees e 
@@ -138,6 +142,14 @@ join departments d
 on d.dept_no = de.dept_no 
 where de.dept_no = 'd007'
 or de.dept_no = 'd005';
+
+
+-- List the frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name).
+select e.last_name, count(e.last_name) as "last_name_frequency_counts"
+from employees e
+group by e.last_name 
+order by "last_name_frequency_counts" desc;
+
 
 
 
